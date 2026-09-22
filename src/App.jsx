@@ -161,7 +161,7 @@ function calcOrcamento(form, config) {
 }
 
 // ── primitives ────────────────────────────────────────────────────────────────
-const inputBase = (f) => ({ width:"100%", boxSizing:"border-box", background:"#0f0f0f", border:`1px solid ${f?"#e8e8e8":"#2a2a2a"}`, borderRadius:8, padding:"10px 12px", color:"#ffffff", fontSize:14, fontFamily:"inherit", outline:"none", transition:"border-color .2s" });
+const inputBase = (f) => ({ width:"100%", boxSizing:"border-box", background:"#1a1a1a", border:`2px solid ${f?"#ffffff":"#333333"}`, borderRadius:16, padding:"14px 16px", color:"#ffffff", fontSize:15, fontFamily:"inherit", outline:"none", transition:"all .2s", boxShadow: f ? "0 0 0 3px rgba(255,255,255,0.1)" : "none" });
 
 const NumInput = ({ value, onChange, unit, placeholder, small }) => {
   const [f,setF] = useState(false);
@@ -181,25 +181,34 @@ const TextInput = ({ value, onChange, placeholder, multiline }) => {
 };
 
 const Field = ({ label, children, small }) => (
-  <div style={{ marginBottom:small?8:14 }}>
-    <label style={{ display:"block", fontSize:small?9:10, fontWeight:700, letterSpacing:"0.1em", color:"#aaaaaa", textTransform:"uppercase", marginBottom:4 }}>{label}</label>
+  <div style={{ marginBottom:small?10:18 }}>
+    <label style={{ display:"block", fontSize:small?10:11, fontWeight:800, letterSpacing:"0.05em", color:"#888888", textTransform:"uppercase", marginBottom:6 }}>{label}</label>
     {children}
   </div>
 );
 
-const Card = ({ title, icon, accent="#e8e8e8", children, noPad }) => (
-  <div style={{ background:"linear-gradient(140deg,#111111,#181818)", border:"1px solid #1e1e1e", borderRadius:14, padding:noPad?0:20, marginBottom:16, position:"relative", overflow:"hidden" }}>
-    <div style={{ position:"absolute",top:0,left:0,width:3,height:"100%",background:accent,borderRadius:"14px 0 0 14px" }} />
-    {title && <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:14,padding:noPad?"16px 20px 0":0 }}>
-      <span style={{ fontSize:16 }}>{icon}</span>
-      <span style={{ fontSize:11,fontWeight:800,color:"#cccccc",letterSpacing:"0.1em",textTransform:"uppercase" }}>{title}</span>
+const Card = ({ title, icon, accent="#ffffff", children, noPad }) => (
+  <div style={{ background:"#111111", border:"2px solid #222222", borderRadius:20, padding:noPad?0:20, marginBottom:16, position:"relative", overflow:"hidden", boxShadow:"0 4px 0 #000000" }}>
+    {title && <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:16,padding:noPad?"20px 20px 0":0,borderBottom:"2px solid #222222",paddingBottom:14 }}>
+      <div style={{ width:36,height:36,background:accent,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0 }}>{icon}</div>
+      <span style={{ fontSize:14,fontWeight:900,color:"#ffffff",letterSpacing:"0.02em" }}>{title}</span>
     </div>}
-    <div style={{ padding:noPad?"0 20px 16px":0 }}>{children}</div>
+    <div style={{ padding:noPad?"0 20px 20px":0 }}>{children}</div>
   </div>
 );
 
 const Chip = ({ active, onClick, color, children, small }) => (
-  <div onClick={onClick} style={{ cursor:onClick?"pointer":"default", userSelect:"none", padding:small?"5px 8px":"8px 10px", borderRadius:8, textAlign:"center", background:active?`${color}22`:"#0f0f0f", border:`1px solid ${active?color:"#2a2a2a"}`, color:active?color:"#777777", fontSize:small?10:11, fontWeight:700, transition:"all .2s" }}>{children}</div>
+  <div onClick={onClick} style={{
+    cursor:onClick?"pointer":"default", userSelect:"none",
+    padding:small?"8px 10px":"12px 14px", borderRadius:14, textAlign:"center",
+    background:active?"#ffffff":"#1a1a1a",
+    border:`2px solid ${active?"#ffffff":"#333333"}`,
+    color:active?"#000000":"#888888",
+    fontSize:small?11:12, fontWeight:800,
+    transition:"all .15s",
+    boxShadow: active ? "0 3px 0 #cccccc" : "0 3px 0 #000000",
+    transform: active ? "translateY(0px)" : "translateY(-1px)",
+  }}>{children}</div>
 );
 
 const Row = ({ label, value, bold, color }) => (
@@ -219,7 +228,7 @@ function ConfigScreen({ config, setConfig, onSave }) {
   return (
     <div>
       <div style={{ textAlign:"center",marginBottom:28 }}>
-        <p style={{ margin:0,fontSize:12,color:"#e8e8e8",letterSpacing:"0.1em",textTransform:"uppercase" }}>Área do Gerente</p>
+        <p style={{ margin:0,fontSize:12,color:"#e8e8e8",letterSpacing:"0.1em",textTransform:"uppercase" }}>Routek</p>
         <h2 style={{ margin:"6px 0 0",fontSize:20,fontWeight:900,color:"#ffffff" }}>Configurações</h2>
       </div>
 
@@ -437,7 +446,7 @@ function QuoteScreen({ config }) {
         {form.itens.map((it, i) => (
           <ItemEditor key={it.id} item={it} index={i} onChange={it => updateItem(i,it)} onRemove={() => removeItem(i)} />
         ))}
-        <button onClick={addItem} style={{ width:"100%",padding:10,borderRadius:8,border:"1px dashed #333333",cursor:"pointer",background:"transparent",color:"#e8e8e8",fontFamily:"inherit",fontSize:12,fontWeight:700,marginTop:4 }}>
+        <button onClick={addItem} style={{ width:"100%",padding:14,borderRadius:16,border:"2px dashed #444444",cursor:"pointer",background:"#1a1a1a",color:"#ffffff",fontFamily:"inherit",fontSize:14,fontWeight:900,marginTop:8,boxShadow:"0 3px 0 #000000" }}>
           + Adicionar geometria
         </button>
 
@@ -568,7 +577,7 @@ function QuoteScreen({ config }) {
           <div style={{ background:"linear-gradient(140deg,#111111,#181818)",border:"1px solid #1e1e1e",borderRadius:14,padding:20,marginBottom:16 }}>
             <div style={{ fontSize:11,fontWeight:800,color:"#cccccc",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:14 }}>📋 Detalhamento</div>
 
-            <div style={{ background:"#0f0f0f",borderRadius:8,padding:"10px 12px",marginBottom:10 }}>
+            <div style={{ background:"#1a1a1a",border:"2px solid #222222",borderRadius:16,padding:"14px",marginBottom:12 }}>
               <div style={{ fontSize:10,color:"#777",fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:8 }}>⏱️ Tempos</div>
               <Row label="Programação (operador)" value={formatSec(result.tempoProjetoH*3600)} />
               <Row label="Setup" value={formatSec(result.tempoSetupH*3600)} />
@@ -576,7 +585,7 @@ function QuoteScreen({ config }) {
               <Row label="Energia consumida" value={`${result.consumoKWh.toFixed(3)} kWh`} />
             </div>
 
-            <div style={{ background:"#0f0f0f",borderRadius:8,padding:"10px 12px",marginBottom:10 }}>
+            <div style={{ background:"#1a1a1a",border:"2px solid #222222",borderRadius:16,padding:"14px",marginBottom:12 }}>
               <div style={{ fontSize:10,color:"#777",fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:8 }}>💰 Custos</div>
               <Row label="Operador (prog + setup)" value={BRL(result.custoOperador)} />
               <Row label="Máquina (execução)" value={BRL(result.custoMaquina)} />
@@ -585,7 +594,7 @@ function QuoteScreen({ config }) {
               <Row label={`Material${form.donoDaMaterial==="cliente"?" (do cliente)":""}`} value={form.donoDaMaterial==="cliente"?"Grátis":BRL(result.custoMat)} color={form.donoDaMaterial==="cliente"?"#22c55e":null} />
             </div>
 
-            <div style={{ background:"#0f0f0f",borderRadius:8,padding:"10px 12px",marginBottom:10 }}>
+            <div style={{ background:"#1a1a1a",border:"2px solid #222222",borderRadius:16,padding:"14px",marginBottom:12 }}>
               <div style={{ fontSize:10,color:"#777",fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:8 }}>📦 Chapas</div>
               <Row label="Área utilizada" value={`${result.areaTotal.toFixed(3)} m²`} />
               <Row label="Chapas necessárias" value={`${result.chapasNec} chp`} />
@@ -600,7 +609,7 @@ function QuoteScreen({ config }) {
             <div style={{ fontSize:11,color:"#999999",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:6 }}>Margem {num(config.margem)}%</div>
             <div style={{ fontSize:11,color:"#999999",marginBottom:20 }}>{form.itens.reduce((s,i)=>s+num(i.quantidade),0)} peça(s) · {result.chapasNec} chapa(s)</div>
             <div style={{ fontSize:10,color:"#999999",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:6 }}>Valor total do orçamento</div>
-            <div style={{ fontSize:44,fontWeight:900,color:"#e8e8e8",letterSpacing:"-0.02em",lineHeight:1,textShadow:"0 0 40px #e8e8e840" }}>{BRL(result.valorFinal)}</div>
+            <div style={{ fontSize:44,fontWeight:900,color:"#ffffff",letterSpacing:"-0.02em",lineHeight:1,background:"#222222",padding:"16px 24px",borderRadius:20,display:"inline-block",boxShadow:"0 4px 0 #000000" }}>{BRL(result.valorFinal)}</div>
             <div style={{ fontSize:13,color:"#cccccc",marginTop:8 }}>{BRL(result.valorFinal/Math.max(form.itens.reduce((s,i)=>s+num(i.quantidade),0),1))} por peça</div>
             <button onClick={saveQuote} style={{ marginTop:18,padding:"10px 28px",borderRadius:8,border:`1px solid ${saved?"#22c55e":"#e8e8e8"}`,cursor:"pointer",background:saved?"#22c55e22":"#e8e8e822",color:saved?"#22c55e":"#e8e8e8",fontFamily:"inherit",fontSize:12,fontWeight:800,letterSpacing:"0.08em",transition:"all .3s" }}>
               {saved?"✓ Salvo!":"💾 Salvar orçamento"}
@@ -681,7 +690,7 @@ function QuoteList({ filter, title, subtitle, emptyMsg, emptyIcon, actionLabel, 
 
         {/* Action button */}
         {actionLabel && q.status !== nextStatus && (
-          <button onClick={()=>{ updateStatus(q.id, nextStatus); setSelected(null); }} style={{ width:"100%",padding:14,borderRadius:10,border:`1px solid ${accentColor}`,cursor:"pointer",background:`${accentColor}22`,color:accentColor,fontFamily:"inherit",fontSize:13,fontWeight:800,letterSpacing:"0.08em",marginBottom:10 }}>
+          <button onClick={()=>{ updateStatus(q.id, nextStatus); setSelected(null); }} style={{ width:"100%",padding:16,borderRadius:16,border:"none",cursor:"pointer",background:"#ffffff",color:"#000000",fontFamily:"inherit",fontSize:14,fontWeight:900,marginBottom:12,boxShadow:"0 4px 0 #888888",transform:"translateY(-1px)" }}>
             {actionLabel}
           </button>
         )}
@@ -689,7 +698,7 @@ function QuoteList({ filter, title, subtitle, emptyMsg, emptyIcon, actionLabel, 
           <div style={{ textAlign:"center",padding:"10px",fontSize:12,color:accentColor,fontWeight:700,marginBottom:10 }}>✓ {actionLabel?.replace(/^[^\s]+\s/,"")} — concluído</div>
         )}
 
-        <button onClick={()=>deleteQuote(q.id)} style={{ width:"100%",padding:14,borderRadius:10,border:"1px solid #ef444460",cursor:"pointer",background:"#1a0808",color:"#ef4444",fontFamily:"inherit",fontSize:12,fontWeight:800 }}>🗑️ Excluir</button>
+        <button onClick={()=>deleteQuote(q.id)} style={{ width:"100%",padding:14,borderRadius:16,border:"2px solid #ef4444",cursor:"pointer",background:"transparent",color:"#ef4444",fontFamily:"inherit",fontSize:13,fontWeight:900,boxShadow:"0 3px 0 #7f1d1d" }}>🗑️ Excluir</button>
       </div>
     );
   }
@@ -774,32 +783,33 @@ export default function App() {
   };
 
   const tabs = [
-    { id:"quote",     label:"Orçamento",  icon:"🧮", disabled:!configured },
-    { id:"orcamentos",label:"Orçamentos", icon:"📂", disabled:!configured },
-    { id:"producao",  label:"Produção",   icon:"⚙️", disabled:!configured },
-    { id:"produzidos",label:"Produzidos", icon:"✅", disabled:!configured },
-    { id:"config",    label:"Gerente",    icon:"⚙️", disabled:false },
+    { id:"quote",  label:"Orçamento", icon:"🧮", disabled:!configured },
+    { id:"config", label:"Gerente",   icon:"⚙️", disabled:false },
   ];
 
   return (
-    <div style={{ minHeight:"100vh",background:"radial-gradient(ellipse at 20% 0%,#0a0a0a,#000000 60%,#000000)",fontFamily:"'IBM Plex Mono','Courier New',monospace",color:"#ffffff" }}>
-      <div style={{ background:"linear-gradient(90deg,#000000,#0a0a0a)",borderBottom:"1px solid #222222",padding:"12px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:100 }}>
-        <div style={{ display:"flex",alignItems:"center",gap:10 }}>
-          <div style={{ width:28,height:28,background:"linear-gradient(135deg,#ffffff,#cccccc)",borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13 }}>⚡</div>
+    <div style={{ minHeight:"100vh",background:"#0a0a0a",fontFamily:"'Nunito','Arial Rounded MT Bold','Arial',sans-serif",color:"#ffffff" }}>
+      <div style={{ background:"#111111",borderBottom:"3px solid #222222",padding:"14px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:100 }}>
+        <div style={{ display:"flex",alignItems:"center",gap:12 }}>
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="38" height="38" rx="10" fill="#ffffff"/>
+            <polygon points="19,6 30,12.5 30,25.5 19,32 8,25.5 8,12.5" fill="none" stroke="#000000" strokeWidth="2.5"/>
+            <line x1="19" y1="6" x2="19" y2="32" stroke="#000000" strokeWidth="1.5"/>
+            <line x1="8" y1="12.5" x2="30" y2="25.5" stroke="#000000" strokeWidth="1.5"/>
+            <line x1="30" y1="12.5" x2="8" y2="25.5" stroke="#000000" strokeWidth="1.5"/>
+            <circle cx="19" cy="19" r="3" fill="#000000"/>
+          </svg>
           <div>
-            <div style={{ fontSize:13,fontWeight:900,letterSpacing:"0.05em",color:"#fff",lineHeight:1 }}>CNC <span style={{ color:"#e8e8e8" }}>SMART</span> COST</div>
-            <div style={{ fontSize:8,color:"#888888",letterSpacing:"0.12em" }}>PRECIFICAÇÃO INTELIGENTE</div>
+            <div style={{ fontSize:20,fontWeight:900,letterSpacing:"-0.03em",color:"#ffffff",lineHeight:1 }}>Routek</div>
+            <div style={{ fontSize:9,color:"#666666",marginTop:2,letterSpacing:"0.1em",textTransform:"uppercase" }}>Precificação CNC</div>
           </div>
         </div>
-        {configured&&<div style={{ display:"flex",alignItems:"center",gap:4 }}><div style={{ width:5,height:5,background:"#22c55e",borderRadius:"50%" }}/><span style={{ fontSize:8,color:"#22c55e",letterSpacing:"0.08em" }}>CONFIGURADO</span></div>}
+        {configured&&<div style={{ background:"#22c55e",borderRadius:20,padding:"4px 12px",display:"flex",alignItems:"center",gap:5,boxShadow:"0 2px 0 #166534" }}><div style={{ width:6,height:6,background:"#ffffff",borderRadius:"50%" }}/><span style={{ fontSize:10,color:"#ffffff",fontWeight:800 }}>Ativo</span></div>}
       </div>
 
       <div style={{ maxWidth:600,margin:"0 auto",padding:"20px 16px 100px" }}>
         {tab==="config"     && <ConfigScreen config={config} setConfig={setConfig} onSave={saveConfig} />}
         {tab==="quote"      && <QuoteScreen config={config} />}
-        {tab==="orcamentos" && <QuoteList filter={null} title="Orçamentos" subtitle="Todos os orçamentos" emptyMsg="Nenhum orçamento salvo." emptyIcon="📂" actionLabel="✅ Aprovar Serviço" actionStatus="pendente" nextStatus="aprovado" accentColor="#f59e0b" />}
-        {tab==="producao"   && <QuoteList filter="aprovado" title="Em Produção" subtitle="Serviços aprovados" emptyMsg="Nenhum serviço em produção." emptyIcon="⚙️" actionLabel="🏭 Marcar como Produzido" actionStatus="aprovado" nextStatus="produzido" accentColor="#e8e8e8" />}
-        {tab==="produzidos" && <QuoteList filter="produzido" title="Produzidos" subtitle="Serviços concluídos" emptyMsg="Nenhum serviço produzido ainda." emptyIcon="✅" accentColor="#22c55e" />}
       </div>
 
       <div style={{ position:"fixed",bottom:0,left:0,right:0,background:"#000000",borderTop:"1px solid #222222",display:"flex" }}>
